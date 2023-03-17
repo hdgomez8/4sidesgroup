@@ -1,3 +1,42 @@
 .error-msg {
     color: red;
   }
+
+  .my-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .my-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 10px;
+  }
+  
+  .my-table td {
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    padding: 10px;
+  }
+  
+  .my-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .my-table tbody tr:hover {
+    background-color: #e5e5e5;
+    cursor: pointer;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .my-table {
+      font-size: 12px;
+    }
+  
+    .my-table th,
+    .my-table td {
+      padding: 5px;
+    }
+  }

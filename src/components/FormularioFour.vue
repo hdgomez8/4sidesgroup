@@ -2,122 +2,152 @@
   <div class="container">
     <h1>Prueba Tecnica</h1>
     <div v-if="!timeUp">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label>Nombre Completo</label>
-          <input type="text" class="form-control" v-model="name" />
-          <div
-            class="input-errors"
-            v-for="error of v$.name.$errors"
-            :key="error.$uid"
-          >
-            <div class="error-msg">{{ error.$message }}</div>
+      <div v-if="showForm">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Nombre Completo</label>
+            <input type="text" class="form-control" v-model="name" />
+            <div
+              class="input-errors"
+              v-for="error of v$.name.$errors"
+              :key="error.$uid"
+            >
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="birthDate">Fecha Nacimiento</label>
+            <input
+              type="date"
+              class="form-control"
+              v-model="birthDate"
+              placeholder="Fecha Nacimiento"
+            />
+            <div
+              class="input-errors"
+              v-for="error of v$.birthDate.$errors"
+              :key="error.$uid"
+            >
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="birthDate">Fecha Nacimiento</label>
-          <input
-            type="date"
-            class="form-control"
-            v-model="birthDate"
-            placeholder="Fecha Nacimiento"
-          />
-          <div
-            class="input-errors"
-            v-for="error of v$.birthDate.$errors"
-            :key="error.$uid"
-          >
-            <div class="error-msg">{{ error.$message }}</div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="countries">Pais</label>
+            <b-form-select
+              v-model="country"
+              :options="countries"
+              value-field="country_name"
+              text-field="country_name"
+              @change="getStates($event)"
+            ></b-form-select>
+            <div
+              class="input-errors"
+              v-for="error of v$.country.$errors"
+              :key="error.$uid"
+            >
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="estado">Estado</label>
+            <b-form-select
+              :options="states"
+              v-model="state"
+              :disabled="!states.length"
+              value-field="state_name"
+              text-field="state_name"
+              @change="getCities($event)"
+            ></b-form-select>
+            <div
+              class="input-errors"
+              v-for="error of v$.state.$errors"
+              :key="error.$uid"
+            >
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="Ciudad">Ciudad</label>
+            <b-form-select
+              :options="cities"
+              v-model="city"
+              :disabled="!cities.length"
+              value-field="city_name"
+              text-field="city_name"
+            ></b-form-select>
+            <div
+              class="input-errors"
+              v-for="error of v$.city.$errors"
+              :key="error.$uid"
+            >
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="countries">Pais</label>
-          <b-form-select
-            v-model="country"
-            :options="countries"
-            value-field="country_name"
-            text-field="country_name"
-            @change="getStates($event)"
-          ></b-form-select>
-          <div
-            class="input-errors"
-            v-for="error of v$.country.$errors"
-            :key="error.$uid"
-          >
-            <div class="error-msg">{{ error.$message }}</div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" v-model="email" />
+            <div
+              class="input-errors"
+              v-for="error of v$.email.$errors"
+              :key="error.$uid"
+            >
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="temperatura">Temperatura</label>
+            <input
+              type="text"
+              class="form-control"
+              v-bind:value="temperature + ' Grados'"
+              disabled
+            />
+            <div
+              class="input-errors"
+              v-for="error of v$.temperatura.$errors"
+              :key="error.$uid"
+            >
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
         </div>
-        <div class="form-group col-md-4">
-          <label for="estado">Estado</label>
-          <b-form-select
-            :options="states"
-            v-model="state"
-            :disabled="!states.length"
-            value-field="state_name"
-            text-field="state_name"
-            @change="getCities($event)"
-          ></b-form-select>
-          <div
-            class="input-errors"
-            v-for="error of v$.state.$errors"
-            :key="error.$uid"
-          >
-            <div class="error-msg">{{ error.$message }}</div>
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label for="Ciudad">Ciudad</label>
-          <b-form-select
-            :options="cities"
-            v-model="city"
-            :disabled="!cities.length"
-            value-field="city_name"
-            text-field="city_name"
-          ></b-form-select>
-          <div
-            class="input-errors"
-            v-for="error of v$.city.$errors"
-            :key="error.$uid"
-          >
-            <div class="error-msg">{{ error.$message }}</div>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" v-model="email" />
-          <div
-            class="input-errors"
-            v-for="error of v$.email.$errors"
-            :key="error.$uid"
-          >
-            <div class="error-msg">{{ error.$message }}</div>
-          </div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="temperatura">Temperatura</label>
-          <input
-            type="text"
-            class="form-control"
-            v-bind:value="temperature + ' Grados'"
-            disabled
-          />
-          <div
-            class="input-errors"
-            v-for="error of v$.temperatura.$errors"
-            :key="error.$uid"
-          >
-            <div class="error-msg">{{ error.$message }}</div>
-          </div>
-        </div>
-      </div>
 
-      <button class="btn btn-primary" @click="submit">Enviar</button>
-      <p v-if="countdown > 0">Tiempo restante: {{ minutes }}:{{ seconds }}</p>
-      <p v-else>¡Se acabó el tiempo!</p>
+        <button class="btn btn-primary" @click="submit">Enviar</button>
+        <p v-if="countdown > 0">Tiempo restante: {{ minutes }}:{{ seconds }}</p>
+        <p v-else>¡Se acabó el tiempo!</p>
+      </div>
+      <div v-if="showUserData">
+        <div>
+          <table class="my-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Fecha Nacimiento</th>
+                <th>Pais</th>
+                <th>Estado</th>
+                <th>ciudad</th>
+                <th>Correo</th>
+                <th>Temperatura</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ name }}</td>
+                <td>{{ birthDate }}</td>
+                <td>{{ country }}</td>
+                <td>{{ state }}</td>
+                <td>{{ city }}</td>
+                <td>{{ email }}</td>
+                <td>{{ temperature }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <div v-else>
       <p>Tiempo agotado.</p>
@@ -152,6 +182,11 @@ export default {
     countdown: 120000,
     timeUp: false,
     showModal: false,
+    showForm: true,
+    showUserData: false,
+    isValidForm: false,
+    startInterval: ''
+    
   }),
   setup: () => ({ v$: useVuelidate() }),
   validations() {
@@ -213,7 +248,14 @@ export default {
   },
   methods: {
     async submit() {
-      await this.v$.$validate();
+      this.isValidForm = await this.v$.$validate();
+
+      if (this.isValidForm) {
+        this.showForm = false;
+        this.showUserData = true;
+        this.showUserData = true;
+     clearInterval(    this.startInterval);
+      }
     },
     async getAccessToken() {
       const data = await axios.get(
@@ -289,11 +331,11 @@ export default {
     },
     startCountdown() {
       const endTime = new Date().getTime() + this.countdown;
-      const interval = setInterval(() => {
+       this.startInterval = setInterval(() => {
         const remainingTime = endTime - new Date().getTime();
 
         if (remainingTime <= 0) {
-          clearInterval(interval);
+          clearInterval(    this.startInterval);
           this.countdown = 0;
           this.formSubmitted = true;
           this.timeUp = true;
@@ -307,7 +349,7 @@ export default {
   },
   async mounted() {
     this.startCountdown();
-    await this.getUserLocation();
+    this.getUserLocation();
     this.getCountries();
     this.getTemperature();
   },
