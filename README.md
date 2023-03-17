@@ -1,21 +1,24 @@
-# 4sidesgroup
-Reclutamiento de Front End Developer - Four Sides Group S.A. de C.V.
+# four
 
-Crea una página web responsiva utilizando Bootstrap que despliegue un formulario que se tiene que responder en un máximo de 2 minutos con los siguientes campos:
+## Project setup
+```
+npm install
+```
 
-**Nombre Completo** – Campo Obligatorio.
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-**Fecha de Nacimiento** – Campo Obligatorio y con validación solo aceptar a personas mayores de 18 años hasta 63 años cumplidos.
+### Compiles and minifies for production
+```
+npm run build
+```
 
-**País y Estado o provincia de Nacimiento (Los estados deberán de cambiar dependiendo del país seleccionado)** – Campo Obligatorio.
+### Lints and fixes files
+```
+npm run lint
+```
 
-**Correo electrónico** – Campo Obligatorio y con formato válido.
-
-**Captura de Temperatura de la ubicación del usuario** – se deberá de obtener de un api rest publico gratuito.
-
-Se deberá de desplegar al usuario un cronometro que al vencimiento despliegue un modal y salga del formulario. 
-No se requiere interacción con backend o almacenamiento de información, el resultado del formulario deberá de desplegar la información capturada sin recargar la pantalla.
-
-El ejercicio deberá de ser enviado a través de este medio con los archivos necesarios para su ejecución en carpeta zip y nombrado con su nombre y la fecha.
-
-
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
